@@ -6,10 +6,26 @@
   <arg name="y" default="-2.843890" />
   <arg name="z" default="0.52258" />
   <arg name="yaw" default="3.09072" />
-
+  <!-- Goal Location -->
+  <arg name="goal_x" default="-4.523511" />
+  <arg name="goal_y" default="-8.772047" />
+  <arg name="goal_z" default="0.373011"/>
+  
+  <!-- GPS Robot Start Location -->
+  <arg name="start_latitude" default="49.9000431231652" />
+  <arg name="start_longitude" default="8.900039666099984" />
+  <!-- GPS Goal Location -->
+  <arg name="goal_latitude" default="49.899958091482446" />
+  <arg name="goal_longitude" default="8.900122085512681" />
+  
+  <!-- Set rosparam for GPS Coordinate of Robot & Goal Location -->
+  <param name="goal_latitude" type="double" value="$(arg goal_latitude)" />
+  <param name="goal_longitude" type="double" value="$(arg goal_longitude)" />
+  <param name="start_latitude" type="double" value="$(arg start_latitude)" />
+  <param name="start_longitude" type="double" value="$(arg start_longitude)" />
 
   <!-- Gazebo World file to load -->
-  <arg name="world_name" default="$(find intro-to-robotics-workshops)/worlds/example1.world" />
+  <arg name="world_name" default="$(find intro-to-robotics-workshops)/worlds/example2.world" />
 
   <!-- ========================= Robot Model ========================= -->
   <!-- Set model path -->
@@ -45,6 +61,14 @@
                 -urdf
                 -param robot_description
                 -model 'robot'" />
+
+
+  <!-- Show Goal Location in Gazebo -->
+  <node name="spawn_goal_location" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find parc_robot)/models/goal_location/model.sdf -sdf 
+                -model goal_location
+                -x $(arg goal_x)
+                -y $(arg goal_y)
+                -z $(arg goal_z)" />
 
 
   <!-- ========================= Vizualize ========================= -->
